@@ -17,7 +17,12 @@
         </label>
       </li>
     </ul>
-    <div :class="$style.graph">graph</div>
+    <div :class="$style.chart">
+      <line-chart
+        :chart-data="dataSetPopulation"
+        :options="chartOption"
+      ></line-chart>
+    </div>
   </div>
 </template>
 
@@ -77,10 +82,57 @@ export default {
   data() {
     return {
       dataSetPref: [],
+      dataSetPopulation: [],
+      chartOption: {
+        responsive: true,
+        scales: {
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: '年度',
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: '人口数',
+              },
+            },
+          ],
+        },
+      },
     }
   },
   mounted() {
     this.dataSetPref = DUMMY_PREF
+
+    this.fillData()
+  },
+  methods: {
+    fillData() {
+      this.dataSetPopulation = {
+        labels: ['1970', '1980', '1990', '2000', '2010', '2020'],
+        datasets: [
+          {
+            label: '東京都',
+            borderColor: '#dd4b24',
+            fill: false,
+            lineTension: 0,
+            data: [4420480, 5420480, 6405319, 6938006, 7194556, 7272830],
+          },
+          {
+            label: '愛知県',
+            borderColor: '#2c2fbf',
+            fill: false,
+            lineTension: 0,
+            data: [5386163, 6221638, 6690603, 7043300, 7410719, 7505224],
+          },
+        ],
+      }
+    },
   },
 }
 </script>
@@ -89,7 +141,9 @@ export default {
 .container {
   max-width: 980px;
   margin: 0 auto;
+  padding: 10px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .checkList {
@@ -112,5 +166,11 @@ export default {
       margin-right: 5px;
     }
   }
+}
+
+.chart {
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 0 10px;
 }
 </style>
