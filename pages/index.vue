@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       dataSetPref: [],
-      dataSetPopulation: [],
+      dataSetPopulation: {},
       chartOption: {
         responsive: true,
         scales: {
