@@ -15,8 +15,11 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.9.1",
+    "fibers": "^5.0.0",
     "modern-css-reset": "^1.4.0",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "sass": "^1.34.0",
+    "sass-loader": "^10"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^6.0.0",
