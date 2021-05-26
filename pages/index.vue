@@ -100,6 +100,9 @@ export default {
                 display: true,
                 labelString: '人口数',
               },
+              ticks: {
+                fontSize: 10,
+              },
             },
           ],
         },
@@ -118,14 +121,16 @@ export default {
         datasets: [
           {
             label: '東京都',
-            borderColor: '#dd4b24',
+            borderColor:
+              '#' + Math.floor(Math.random() * 16777215).toString(16),
             fill: false,
             lineTension: 0,
             data: [4420480, 5420480, 6405319, 6938006, 7194556, 7272830],
           },
           {
             label: '愛知県',
-            borderColor: '#2c2fbf',
+            borderColor:
+              '#' + Math.floor(Math.random() * 16777215).toString(16),
             fill: false,
             lineTension: 0,
             data: [5386163, 6221638, 6690603, 7043300, 7410719, 7505224],
