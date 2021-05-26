@@ -151,6 +151,34 @@ export default {
   box-sizing: border-box;
 }
 
+.title {
+  position: relative;
+  padding: 0 1rem 0.7rem;
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    content: '';
+    background-image: repeating-linear-gradient(
+      -45deg,
+      #000,
+      #000 1px,
+      transparent 2px,
+      transparent 5px
+    );
+    background-size: 7px 7px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
 .checkList {
   display: flex;
   flex-wrap: wrap;
