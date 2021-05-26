@@ -39,7 +39,15 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['nuxt-webfontloader'],
+
+  // other
+  webfontloader: {
+    google: {
+      // https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap
+      families: ['Noto Sans JP'],
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
