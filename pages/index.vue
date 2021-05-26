@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.container">
     <h1 :class="$style.title">都道府県毎の人口推移</h1>
+    <h2 :class="$style.titleLv02">都道府県</h2>
     <ul :class="$style.checkList">
       <li
         v-for="data in dataSetPref"
@@ -177,6 +178,14 @@ export default {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
+}
+
+.titleLv02 {
+  border-left: 4px solid #000ba5;
+  font-size: 1rem;
+  margin: 10px;
+  padding: 0.2rem 0.7rem;
+  text-align: left;
 }
 
 .checkList {
