@@ -2,26 +2,10 @@
   <div :class="$style.container">
     <h1 :class="$style.title">都道府県毎の人口推移</h1>
     <h2 :class="$style.titleLv02">都道府県</h2>
-    <ul :class="$style.checkList">
-      <li
-        v-for="data in dataSetPref"
-        :key="data.prefCode"
-        :class="$style.checkList__item"
-      >
-        <label
-          :class="$style.checkList__checkbox"
-          :for="`pref__checkbox-${data.prefCode}`"
-        >
-          <input
-            :id="`pref__checkbox-${data.prefCode}`"
-            v-model="data.checked"
-            type="checkbox"
-            @change="handleChangeCheckbox(data.prefCode, data.prefName)"
-          />
-          {{ data.prefName }}
-        </label>
-      </li>
-    </ul>
+    <ListCheckbox
+      :data-set-pref="dataSetPref"
+      @handleChangeCheckbox="handleChangeCheckbox"
+    />
     <div :class="$style.chart">
       <line-chart
         :chart-data="dataSetPopulation"
@@ -220,28 +204,6 @@ export default {
   margin: 10px;
   padding: 0.2rem 0.7rem;
   text-align: left;
-}
-
-.checkList {
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
-  list-style-type: none;
-
-  // .checkList__item
-  &__item {
-    padding: 10px;
-  }
-
-  // .checkList__checkbox
-  &__checkbox {
-    cursor: pointer;
-
-    > input[type='checkbox'] {
-      cursor: pointer;
-      margin-right: 5px;
-    }
-  }
 }
 
 .chart {
