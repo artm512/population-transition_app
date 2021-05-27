@@ -38,15 +38,27 @@ export default {
 </script>
 
 <style module lang="scss">
+@import '~/assets/css/mixin.scss';
+
 .checkList {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   padding-left: 0;
   list-style-type: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+
+  @include mq(sm) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include mq(md) {
+    grid-template-columns: repeat(8, 1fr);
+  }
 
   // .checkList__item
   &__item {
-    padding: 10px;
+    padding: 0 5px;
+    text-align: left;
   }
 
   // .checkList__checkbox
