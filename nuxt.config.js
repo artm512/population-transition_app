@@ -54,7 +54,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  env: {
-    RESAS_API_KEY,
+  privateRuntimeConfig: {
+    resasApiKey: RESAS_API_KEY,
+  },
+
+  publicRuntimeConfig: {
+    resasApiKey: RESAS_API_KEY,
   },
 }
