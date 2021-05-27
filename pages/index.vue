@@ -16,7 +16,7 @@
             :id="`pref__checkbox-${data.prefCode}`"
             v-model="data.checked"
             type="checkbox"
-            @change="addData(data.prefCode, data.prefName)"
+            @change="handleChangeCheckbox(data.prefCode, data.prefName)"
           />
           {{ data.prefName }}
         </label>
@@ -93,6 +93,17 @@ export default {
       })
   },
   methods: {
+    handleChangeCheckbox(prefCode, prefName) {
+      const isViewLine = this.dataSetPref.find(
+        (obj) => obj.prefCode === prefCode
+      ).checked
+
+      if (isViewLine) {
+        this.addData(prefCode, prefName)
+      } else {
+        this.removeData(prefCode)
+      }
+    },
     addData(prefCode, prefName) {
       this.getApiResas(this.population_url(prefCode))
         .then((res) => {
@@ -104,7 +115,7 @@ export default {
             return targetObj.value
           })
 
-          const populationDatasets = [
+          const newPopulationDatasets = [
             ...this.dataSetPopulation.datasets,
             {
               prefCode,
@@ -119,7 +130,7 @@ export default {
 
           this.dataSetPopulation = {
             labels: CHART_YEARS,
-            datasets: populationDatasets,
+            datasets: newPopulationDatasets,
           }
         })
         .catch((err) => {
@@ -134,6 +145,18 @@ export default {
             return obj
           })
         })
+    },
+    removeData(prefCode) {
+      const newPopulationDatasets = this.dataSetPopulation.datasets.filter(
+        (obj) => {
+          return obj.prefCode !== prefCode
+        }
+      )
+
+      this.dataSetPopulation = {
+        labels: CHART_YEARS,
+        datasets: newPopulationDatasets,
+      }
     },
     getApiResas(url) {
       return axios.get(url, {
