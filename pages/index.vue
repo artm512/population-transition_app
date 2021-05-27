@@ -154,7 +154,7 @@ export default {
     },
     getApiResas(url) {
       return axios.get(url, {
-        headers: { 'X-API-KEY': process.env.RESAS_API_KEY },
+        headers: { 'X-API-KEY': this.$config.resasApiKey },
       })
     },
   },
