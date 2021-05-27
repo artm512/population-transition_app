@@ -128,9 +128,19 @@ export default {
             },
           ]
 
+          const sortedPopulationDatasets = newPopulationDatasets.sort(
+            (a, b) => {
+              if (a.prefCode < b.prefCode) {
+                return -1
+              } else {
+                return 1
+              }
+            }
+          )
+
           this.dataSetPopulation = {
             labels: CHART_YEARS,
-            datasets: newPopulationDatasets,
+            datasets: sortedPopulationDatasets,
           }
         })
         .catch((err) => {
