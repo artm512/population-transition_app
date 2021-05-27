@@ -207,7 +207,7 @@ export default {
 }
 
 .chart {
-  margin: 30px auto;
+  margin: 50px auto;
   max-width: 600px;
   padding: 0 10px;
 }
