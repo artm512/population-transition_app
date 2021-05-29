@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nuxtjs/vercel-builder": "^0.21.2",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.9.1",
