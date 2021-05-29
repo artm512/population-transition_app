@@ -61,4 +61,6 @@ export default {
   publicRuntimeConfig: {
     resasApiKey: RESAS_API_KEY,
   },
+
+  serverMiddleware: ['~/api'],
 }
