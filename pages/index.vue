@@ -3,7 +3,7 @@
     <h1 :class="$style.title">都道府県毎の人口推移</h1>
     <h2 :class="$style.titleLv02">都道府県</h2>
     <ListCheckbox
-      :data-set-pref="dataSetPref"
+      :data-set-pref="mappedDataSetProf"
       @handleChangeCheckbox="handleChangeCheckbox"
     />
     <div :class="$style.chart">
@@ -19,14 +19,25 @@
 import axios from 'axios'
 
 const CHART_YEARS = ['1970', '1980', '1990', '2000', '2010', '2020']
-const PREFECTURES_URL = 'https://opendata.resas-portal.go.jp/api/v1/prefectures'
 const POPULATION_URL_PREFIX =
   'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='
 
 export default {
+  async asyncData({ $config }) {
+    const PREFECTURES_URL =
+      'https://opendata.resas-portal.go.jp/api/v1/prefectures'
+    const dataSetPref = await axios
+      .get(PREFECTURES_URL, {
+        headers: { 'X-API-KEY': $config.resasApiKey },
+      })
+      .then((res) => {
+        return res.data.result
+      })
+    return { dataSetPref }
+  },
   data() {
     return {
-      dataSetPref: [],
+      dataSetPref: [], // from asyncData
       dataSetPopulation: {
         labels: CHART_YEARS,
         datasets: [],
@@ -63,22 +74,15 @@ export default {
         return POPULATION_URL_PREFIX + prefCode
       }
     },
-  },
-  mounted() {
-    this.getApiResas(PREFECTURES_URL)
-      .then((res) => {
-        this.dataSetPref = res.data.result.map((obj) => {
-          return { ...obj, checked: false }
-        })
+    mappedDataSetProf() {
+      return this.dataSetPref.map((obj) => {
+        return { ...obj, checked: false }
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error('エラー：', err.message)
-      })
+    },
   },
   methods: {
     handleChangeCheckbox(prefCode, prefName) {
-      const isViewLine = this.dataSetPref.find(
+      const isViewLine = this.mappedDataSetProf.find(
         (obj) => obj.prefCode === prefCode
       ).checked
 
