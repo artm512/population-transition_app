@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "fibers": "^5.0.0",
     "modern-css-reset": "^1.4.0",
+    "node-sass": "^6.0.0",
     "nuxt": "^2.15.3",
     "nuxt-webfontloader": "^1.1.0",
     "sass": "^1.34.0",
