@@ -19,8 +19,6 @@
 import axios from 'axios'
 
 const CHART_YEARS = ['1970', '1980', '1990', '2000', '2010', '2020']
-const POPULATION_URL_PREFIX =
-  'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='
 
 export default {
   async asyncData({ $config }) {
@@ -69,11 +67,6 @@ export default {
     }
   },
   computed: {
-    population_url() {
-      return (prefCode) => {
-        return POPULATION_URL_PREFIX + prefCode
-      }
-    },
     mappedDataSetProf() {
       return this.dataSetPref.map((obj) => {
         return { ...obj, checked: false }
@@ -93,9 +86,9 @@ export default {
       }
     },
     addData(prefCode, prefName) {
-      this.getApiResas(this.population_url(prefCode))
+      this.getApiResasPopulation(prefCode)
         .then((res) => {
-          const { data: resData } = res.data.result.data[0]
+          const { data: resData } = res.data.data[0] // 総人口
           const setData = CHART_YEARS.map((year) => {
             const targetObj = resData.find((obj) => {
               return obj.year === Number(year)
@@ -156,10 +149,8 @@ export default {
         datasets: newPopulationDatasets,
       }
     },
-    getApiResas(url) {
-      return axios.get(url, {
-        headers: { 'X-API-KEY': this.$config.resasApiKey },
-      })
+    getApiResasPopulation(prefCode) {
+      return axios.post('/getPopulation', { prefCode })
     },
   },
 }
