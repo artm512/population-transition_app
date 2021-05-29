@@ -12,6 +12,7 @@
         :options="chartOption"
       ></line-chart>
     </div>
+    <Loading :loading="loading" />
   </div>
 </template>
 
@@ -35,6 +36,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       dataSetPref: [], // from asyncData
       dataSetPopulation: {
         labels: CHART_YEARS,
@@ -86,6 +88,7 @@ export default {
       }
     },
     addData(prefCode, prefName) {
+      this.loading = true
       this.getApiResasPopulation(prefCode)
         .then((res) => {
           const { data: resData } = res.data.data[0] // 総人口
@@ -135,6 +138,9 @@ export default {
             }
             return obj
           })
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
     removeData(prefCode) {
